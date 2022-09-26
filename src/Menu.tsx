@@ -8,7 +8,10 @@ export default function Menu() {
       <div className="flex flex-wrap">
         {foods.map((food) => {
           return (
-            <div className="hover:bg-indigo-600 hover:text-white p-2 shadow-lg border max-w-sm m-2 rounded">
+            <div
+              key={food.name}
+              className="hover:bg-indigo-600 hover:text-white p-2 shadow-lg border max-w-sm m-2 rounded"
+            >
               <Heading level={2}>{food.name}</Heading>
               <img
                 className="h-52"
