@@ -1,27 +1,26 @@
-import { foods } from "./food";
+import { Link, Route, Routes } from "react-router-dom";
+import Admin from "./Admin";
+import Menu from "./Menu";
 
-// Exercise: Display food name in an H2 tag. Display description, and price in separate paragraph tags.
-// Style the h2 tag as desired.
 export default function App() {
   return (
     <main>
       <h1 className="text-3xl font-bold">React Restaurant</h1>
-      <div className="flex flex-wrap">
-        {foods.map((food) => {
-          return (
-            <div className="hover:bg-indigo-600 hover:text-white p-2 shadow-lg border max-w-sm m-2 rounded">
-              <h2 className="text-lg font-bold">{food.name}</h2>
-              <img
-                className="h-52"
-                src={"/images/" + food.image}
-                alt={food.name}
-              />
-              <p>{food.description}</p>
-              <p>${food.price}</p>
-            </div>
-          );
-        })}
-      </div>
+      <nav className="bg-indigo-100 p-2">
+        <ul className="flex">
+          <li className="mr-2">
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/admin">Admin</Link>
+          </li>
+        </ul>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Menu />} />
+        <Route path="/admin" element={<Admin />} />
+      </Routes>
     </main>
   );
 }
