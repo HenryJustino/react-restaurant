@@ -1,11 +1,12 @@
 import { Link, Route, Routes } from "react-router-dom";
 import Admin from "./Admin";
 import Menu from "./Menu";
+import Heading from "./shared/Heading";
 
 export default function App() {
   return (
     <main>
-      <h1 className="text-3xl font-bold">React Restaurant</h1>
+      <Heading level={1}>React Restaurant</Heading>
       <nav className="bg-indigo-100 p-2">
         <ul className="flex">
           <li className="mr-2">
