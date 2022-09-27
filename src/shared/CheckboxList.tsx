@@ -1,4 +1,5 @@
 type CheckboxListProps = {
+  label: string;
   className?: string;
   children: React.ReactNode;
 };
@@ -6,6 +7,12 @@ type CheckboxListProps = {
 export default function CheckboxList({
   children,
   className = "",
+  label,
 }: CheckboxListProps) {
-  return <div className={className}>{children}</div>;
+  return (
+    <fieldset className={className}>
+      <legend>{label}</legend>
+      {children}
+    </fieldset>
+  );
 }
