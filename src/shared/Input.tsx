@@ -1,3 +1,5 @@
+import Error from "./Error";
+
 type InputProps = {
   className?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -5,6 +7,7 @@ type InputProps = {
   label: string;
   type?: "text" | "number" | "email" | "password" | "tel";
   value?: string;
+  error?: string;
 };
 
 export default function Input({
@@ -14,6 +17,7 @@ export default function Input({
   type = "text",
   value,
   onChange,
+  error,
 }: InputProps) {
   return (
     <div className={className}>
@@ -27,6 +31,7 @@ export default function Input({
         className="border border-gray-600 p-2"
         type={type}
       />
+      {error && <Error error={error} />}
     </div>
   );
 }
