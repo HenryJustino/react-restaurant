@@ -4,6 +4,7 @@ type CheckboxProps = {
   label: string;
   value?: string;
   checked?: boolean;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export default function Checkbox({
@@ -12,10 +13,12 @@ export default function Checkbox({
   label,
   value,
   checked,
+  onChange,
 }: CheckboxProps) {
   return (
     <div className={className}>
       <input
+        onChange={onChange}
         checked={checked}
         value={value}
         id={id}
