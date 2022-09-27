@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Food } from "./food";
+import { getFoods } from "./services/foodsApi";
 import Heading from "./shared/Heading";
 
 export default function Menu() {
@@ -7,9 +8,7 @@ export default function Menu() {
 
   useEffect(() => {
     async function fetchFoods() {
-      const resp = await fetch("http://localhost:3001/foods");
-      const data = await resp.json();
-      setFoods(data);
+      setFoods(await getFoods());
     }
     fetchFoods();
   }, []);
