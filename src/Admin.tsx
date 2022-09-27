@@ -13,6 +13,7 @@ export default function Admin() {
         <Input id="name" label="Name" className="my-4" />
         <Input id="description" label="Description" className="my-4" />
         <Input id="price" label="Price" type="number" className="my-4" />
+        <Input id="image" label="Image filename" className="my-4" />
         <CheckboxList label="Tags">
           {foodTags.map((tag) => (
             <Checkbox key={tag} id={tag} label={tag} />
