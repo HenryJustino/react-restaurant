@@ -2,7 +2,7 @@ type InputProps = {
   className?: string;
   id: string;
   label: string;
-  type?: "text" | "number" | "email" | "password" | "tel" | "checkbox";
+  type?: "text" | "number" | "email" | "password" | "tel";
   value?: string;
 };
 
