@@ -41,11 +41,38 @@ export default function Admin() {
           onChange={handleInputChange}
           value={food.description}
         />
-        <Input id="price" label="Price" type="number" className="my-4" />
-        <Input id="image" label="Image filename" className="my-4" />
+        <Input
+          id="price"
+          label="Price"
+          type="number"
+          className="my-4"
+          onChange={handleInputChange}
+          value={food.price.toString()}
+        />
+        <Input
+          id="image"
+          label="Image filename"
+          className="my-4"
+          onChange={handleInputChange}
+          value={food.image}
+        />
         <CheckboxList label="Tags">
           {foodTags.map((tag) => (
-            <Checkbox key={tag} id={tag} label={tag} />
+            <Checkbox
+              key={tag}
+              id={tag}
+              label={tag}
+              checked={food.tags.includes(tag)}
+              onChange={(event) => {
+                setFood((currentFood) => {
+                  const { checked } = event.target;
+                  const tags = checked
+                    ? [...currentFood.tags, tag]
+                    : currentFood.tags.filter((t) => t !== tag);
+                  return { ...currentFood, tags };
+                });
+              }}
+            />
           ))}
         </CheckboxList>
         <Button className="block mt-4" variant="primary" type="submit">
