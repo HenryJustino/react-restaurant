@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { Food, foodTags } from "./food";
+import toast from "react-hot-toast";
+import { foodTags, NewFood } from "./food";
+import { addFood } from "./services/foodsApi";
 import Button from "./shared/Button";
 import Checkbox from "./shared/Checkbox";
 import CheckboxList from "./shared/CheckboxList";
 import Heading from "./shared/Heading";
 import Input from "./shared/Input";
 
-const emptyFood: Food = {
+const emptyFood: NewFood = {
   name: "",
   image: "",
   price: 0,
@@ -23,10 +25,17 @@ export default function Admin() {
     setFood((currentFood) => ({ ...currentFood, [id]: value }));
   }
 
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    await addFood(food);
+    toast.success("Food added! 🍔");
+    setFood(emptyFood);
+  }
+
   return (
     <>
       <Heading level={2}>Admin</Heading>
-      <form>
+      <form onSubmit={handleSubmit}>
         <Input
           id="name"
           label="Name"
