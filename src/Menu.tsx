@@ -1,7 +1,19 @@
-import { foods } from "./food";
+import { useEffect, useState } from "react";
+import { Food } from "./food";
 import Heading from "./shared/Heading";
 
 export default function Menu() {
+  const [foods, setFoods] = useState<Food[]>([]);
+
+  useEffect(() => {
+    async function fetchFoods() {
+      const resp = await fetch("http://localhost:3001/foods");
+      const data = await resp.json();
+      setFoods(data);
+    }
+    fetchFoods();
+  }, []);
+
   return (
     <>
       <Heading level={2}>Menu</Heading>
