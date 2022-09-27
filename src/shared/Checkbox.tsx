@@ -21,8 +21,8 @@ export default function Checkbox({
         id={id}
         className="border border-gray-600 p-2"
         type="checkbox"
-      />
-      <label className="block" htmlFor={id}>
+      />{" "}
+      <label className="" htmlFor={id}>
         {label}
       </label>
     </div>
