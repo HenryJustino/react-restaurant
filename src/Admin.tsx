@@ -85,6 +85,10 @@ export default function Admin() {
     setFood(emptyFood);
   }
 
+  function getError(id: keyof Errors) {
+    return status === "submitted" || touched[id] ? errors[id] : "";
+  }
+
   return (
     <>
       <Heading level={2}>Admin</Heading>
@@ -97,8 +101,7 @@ export default function Admin() {
           onChange={handleInputChange}
           onBlur={handleBlur}
           value={food.name}
-          // Exercise 7: Centralize this logic in a function above.
-          error={status === "submitted" || touched.name ? errors.name : ""}
+          error={getError("name")}
         />
         <Input
           id="description"
@@ -107,11 +110,7 @@ export default function Admin() {
           onChange={handleInputChange}
           onBlur={handleBlur}
           value={food.description}
-          error={
-            status === "submitted" || touched.description
-              ? errors.description
-              : ""
-          }
+          error={getError("description")}
         />
         <Input
           id="price"
@@ -121,7 +120,7 @@ export default function Admin() {
           onChange={handleInputChange}
           onBlur={handleBlur}
           value={food.price.toString()}
-          error={errors.price}
+          error={getError("price")}
         />
         <Input
           id="image"
@@ -130,9 +129,12 @@ export default function Admin() {
           onChange={handleInputChange}
           onBlur={handleBlur}
           value={food.image}
-          error={errors.image}
+          error={getError("image")}
         />
-        <CheckboxList label="Tags" error={errors.tags}>
+        <CheckboxList
+          label="Tags"
+          error={status === "submitted" ? errors.tags : undefined}
+        >
           {foodTags.map((tag) => (
             <Checkbox
               key={tag}
