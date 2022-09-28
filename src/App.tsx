@@ -1,6 +1,8 @@
+import { ErrorBoundary } from "react-error-boundary";
 import { Link, Route, Routes } from "react-router-dom";
 import Admin from "./Admin";
 import Menu from "./Menu";
+import ErrorFallback from "./shared/ErrorFallback";
 import Heading from "./shared/Heading";
 
 export default function App() {
@@ -19,8 +21,23 @@ export default function App() {
       </nav>
 
       <Routes>
-        <Route path="/" element={<Menu />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route
+          path="/"
+          element={
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
+              <Menu />
+            </ErrorBoundary>
+          }
+        />
+
+        <Route
+          path="/admin"
+          element={
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
+              <Admin />
+            </ErrorBoundary>
+          }
+        />
       </Routes>
     </main>
   );
