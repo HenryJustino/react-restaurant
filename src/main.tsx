@@ -4,13 +4,16 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { Toaster } from "react-hot-toast";
 import "./index.css";
+import { ErrorBoundary } from "react-error-boundary";
 
 // Warning: StrictMode will render twice in dev only. This can catch subtle bugs.
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Toaster />
-      <App />
-    </BrowserRouter>
+    <ErrorBoundary fallback={<h1>Oops! Sorry, an error occurred.</h1>}>
+      <BrowserRouter>
+        <Toaster />
+        <App />
+      </BrowserRouter>
+    </ErrorBoundary>
   </React.StrictMode>
 );
