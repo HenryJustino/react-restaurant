@@ -75,6 +75,7 @@ export default function Admin() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    window.scrollTo(0, 0);
     setStatus("submitting");
     if (!isValid) {
       setStatus("submitted");
@@ -82,7 +83,9 @@ export default function Admin() {
     }
     await addFood(food);
     toast.success("Food added! 🍔");
+    setStatus("idle");
     setFood(emptyFood);
+    setTouched({});
   }
 
   function getError(id: keyof Errors) {
@@ -131,10 +134,7 @@ export default function Admin() {
           value={food.image}
           error={getError("image")}
         />
-        <CheckboxList
-          label="Tags"
-          error={status === "submitted" ? errors.tags : undefined}
-        >
+        <CheckboxList label="Tags" error={getError("tags")}>
           {foodTags.map((tag) => (
             <Checkbox
               key={tag}
