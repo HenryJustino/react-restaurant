@@ -24,14 +24,33 @@ export type Errors = {
   tags?: string;
 };
 
+export type Touched = {
+  name?: boolean;
+  image?: boolean;
+  price?: boolean;
+  description?: boolean;
+  tags?: boolean;
+};
+
+type FormStatus = "idle" | "submitting" | "submitted" | "error";
+
 export default function Admin() {
   const [food, setFood] = useState(emptyFood);
-  const [errors, setErrors] = useState<Errors>({});
+  const [touched, setTouched] = useState<Touched>({});
+  const [status, setStatus] = useState<FormStatus>("idle");
+
+  const errors = validate();
+  const isValid = Object.keys(errors).length === 0;
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { id, value } = event.target;
     // React injects the current state value when a function is passed to setState
     setFood((currentFood) => ({ ...currentFood, [id]: value }));
+  }
+
+  function handleBlur(event: React.FocusEvent<HTMLInputElement>) {
+    const { id } = event.target;
+    setTouched((currentTouched) => ({ ...currentTouched, [id]: true }));
   }
 
   function validate() {
@@ -51,14 +70,16 @@ export default function Admin() {
     if (food.tags.length === 0) {
       newErrors.tags = "At least one tag is required";
     }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return newErrors;
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const isValid = validate();
-    if (!isValid) return;
+    setStatus("submitting");
+    if (!isValid) {
+      setStatus("submitted");
+      return;
+    }
     await addFood(food);
     toast.success("Food added! 🍔");
     setFood(emptyFood);
@@ -74,16 +95,23 @@ export default function Admin() {
           label="Name"
           className="my-4"
           onChange={handleInputChange}
+          onBlur={handleBlur}
           value={food.name}
-          error={errors.name}
+          // Exercise 7: Centralize this logic in a function above.
+          error={status === "submitted" || touched.name ? errors.name : ""}
         />
         <Input
           id="description"
           label="Description"
           className="my-4"
           onChange={handleInputChange}
+          onBlur={handleBlur}
           value={food.description}
-          error={errors.description}
+          error={
+            status === "submitted" || touched.description
+              ? errors.description
+              : ""
+          }
         />
         <Input
           id="price"
@@ -91,6 +119,7 @@ export default function Admin() {
           type="number"
           className="my-4"
           onChange={handleInputChange}
+          onBlur={handleBlur}
           value={food.price.toString()}
           error={errors.price}
         />
@@ -99,6 +128,7 @@ export default function Admin() {
           label="Image filename"
           className="my-4"
           onChange={handleInputChange}
+          onBlur={handleBlur}
           value={food.image}
           error={errors.image}
         />
