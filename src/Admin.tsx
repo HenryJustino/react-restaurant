@@ -59,7 +59,7 @@ export default function Admin() {
       newErrors.name = "Name is required";
     }
     if (!food.image) {
-      newErrors.image = "Image is required";
+      newErrors.image = "Image filename is required";
     }
     if (!food.price) {
       newErrors.price = "Price is required";
