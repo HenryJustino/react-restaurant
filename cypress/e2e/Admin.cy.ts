@@ -26,6 +26,7 @@ function addNewFood() {
   cy.findByLabelText("Image filename").type("fake-photo.jpg");
   cy.findByLabelText("Breakfast").check();
   cy.findByRole("button", { name: "Save" }).click();
+  cy.findByRole("button", { name: "Saving..." });
   cy.findByRole("link", { name: "Home" }).click();
   cy.findByRole("heading", { name: "BBQ Ribs" });
 }
