@@ -86,7 +86,13 @@ export default function Admin() {
       setStatus("submitted");
       return;
     }
-    await addFood(food);
+
+    try {
+      await addFood(food);
+    } catch (err) {
+      setStatus("error");
+      return;
+    }
     toast.success("Food added! 🍔");
     setStatus("idle");
     setFood(emptyFood);
@@ -95,6 +101,10 @@ export default function Admin() {
 
   function getError(id: keyof Errors) {
     return status === "submitted" || touched[id] ? errors[id] : "";
+  }
+
+  if (status === "error") {
+    throw new Error("Something went wrong");
   }
 
   return (
