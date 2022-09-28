@@ -21,3 +21,11 @@ Primary.args = {
   children: "Click me",
   className: "custom-class",
 };
+
+export const Secondary = Template.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+Secondary.args = {
+  variant: "secondary",
+  children: "Click me",
+  className: "custom-class",
+};
